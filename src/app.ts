@@ -59,7 +59,10 @@ export const metricsCollector = new PrometheusMetricsCollector("monitor", {
   bullmqOpts: {
     prefix: prefix,
   },
-  client: new Redis(redisConnString, { maxRetriesPerRequest: null }),
+  client: new Redis(redisConnString, {
+    maxRetriesPerRequest: null,
+    db: config.redis.database,
+  }),
   queues: [],
 });
 

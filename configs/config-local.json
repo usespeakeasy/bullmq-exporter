@@ -3,7 +3,8 @@
     "host": "localhost:6379/",
     "username": "default",
     "password": "redispw",
-    "ssl": false
+    "ssl": false,
+    "database": 0
   },
   "cookieSecret": "myCookieSecret123!",
   "cookieMaxAge": "1h",

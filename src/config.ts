@@ -6,6 +6,7 @@ export interface Config {
     username: string;
     password: string;
     ssl: boolean;
+    database?: number;
   };
   cookieSecret: string;
   cookieMaxAge: string;
@@ -25,5 +26,6 @@ config.redis.host = setFromEnv("REDIS_HOST", config.redis.host);
 config.redis.username = setFromEnv("REDIS_USERNAME", config.redis.username);
 config.redis.password = setFromEnv("REDIS_PASSWORD", config.redis.password);
 config.redis.ssl = setFromEnv("REDIS_SSL", config.redis.ssl);
+config.redis.database = setFromEnv("REDIS_DATABASE", config.redis.database);
 
 export default config;
