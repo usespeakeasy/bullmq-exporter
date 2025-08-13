@@ -39,12 +39,16 @@ export class PrometheusMonitoredQueue extends bullmq.QueueEvents {
 
     const completedDuration = job.finishedOn! - job.timestamp!; // both cannot be null
     const processedDuration = job.finishedOn! - job.processedOn!; // both cannot be null
+    const waitDuration = job.processedOn! - job.timestamp!; // both cannot be null
     this.metrics.completedDuration
       .labels({ queue: this.name })
       .observe(completedDuration);
     this.metrics.processedDuration
       .labels({ queue: this.name })
       .observe(processedDuration);
+    this.metrics.waitDuration
+      .labels({ queue: this.name })
+      .observe(waitDuration);
   }
 
   async loop(ms = 5000) {

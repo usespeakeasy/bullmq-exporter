@@ -18,6 +18,7 @@ export interface PrometheusMetrics {
   waitingGauge: prom_client.Gauge<any>;
   completedDuration: prom_client.Histogram<any>;
   processedDuration: prom_client.Histogram<any>;
+  waitDuration: prom_client.Histogram<any>;
 }
 
 export class PrometheusMetricsCollector {
@@ -84,6 +85,12 @@ export class PrometheusMetricsCollector {
         name: `${prefix}bullmq_processed_duration`,
         help: "Processing time for completed jobs (processing until completed)",
         buckets: [5, 50, 100, 250, 500, 750, 1000, 2500],
+        labelNames: ["queue"],
+      }),
+      waitDuration: new prom_client.Histogram({
+        name: `${prefix}bullmq_wait_duration`,
+        help: "Wait time for completed jobs (created until processing)",
+        buckets: [5, 50, 100, 250, 500, 750, 1000, 2500, 5000, 10000],
         labelNames: ["queue"],
       }),
       completedDuration: new prom_client.Histogram({

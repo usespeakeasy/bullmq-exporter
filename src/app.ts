@@ -38,7 +38,7 @@ if (username === undefined || password === undefined || host === undefined) {
 }
 
 const enableSsl = config.redis.ssl;
-const prefix = process.env.NODE_ENV?.toLowerCase() || "local";
+const prefix = process.env.PREFIX?.toLowerCase() || "updown_monitor";
 const cookieSecret = config.cookieSecret;
 const cookieMaxAge = config.cookieMaxAge;
 const defaultUsers: Array<User> = [
