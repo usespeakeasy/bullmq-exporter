@@ -93,7 +93,8 @@ docker run \
     --mount type=bind,source=$(pwd)/configs,target=/app/configs \
     --env=NODE_ENV=dev \
     --env=REDIS_HOST=some-host:6379/ \
-    rgummich/bullmq-exporter
+    --env=PREFIX=bull \
+    ghcr.io/usespeakeasy/bullmq-exporter:latest
 ```
 
 ### Kubernetes
