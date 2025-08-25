@@ -75,7 +75,7 @@ export function ConfigureRoutes(app: Router, opts: DashboardOptions) {
       secret: cookieSecret,
       saveUninitialized: true,
       resave: true,
-      cookie: { maxAge: cookieMaxAge },
+      cookie: { maxAge: cookieMaxAge ?? undefined },
     })
   );
   app.use(express.urlencoded({ extended: false }));

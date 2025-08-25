@@ -110,6 +110,7 @@ export class PrometheusMetricsCollector {
     );
     const keyStream = await this.defaultRedisClient.scanStream({
       match: `${this.bullmqOpts.prefix}:*:*`,
+      count: 5000
     });
 
     const queues = new Set<string>();

@@ -38,7 +38,7 @@ if (username === undefined || password === undefined || host === undefined) {
 }
 
 const enableSsl = config.redis.ssl;
-const prefix = process.env.PREFIX?.toLowerCase() || "updown_monitor";
+const prefix = process.env.PREFIX?.toLowerCase() || "bull";
 const cookieSecret = config.cookieSecret;
 const cookieMaxAge = config.cookieMaxAge;
 const defaultUsers: Array<User> = [
@@ -55,14 +55,17 @@ const redisConnString = formatConnectionString(
   enableSsl
 );
 
+const connection = new Redis(redisConnString, {
+    maxRetriesPerRequest: null,
+    db: config.redis.database,
+});
+
 export const metricsCollector = new PrometheusMetricsCollector("monitor", {
   bullmqOpts: {
     prefix: prefix,
+    connection
   },
-  client: new Redis(redisConnString, {
-    maxRetriesPerRequest: null,
-    db: config.redis.database,
-  }),
+  client: connection,
   queues: [],
 });
 
