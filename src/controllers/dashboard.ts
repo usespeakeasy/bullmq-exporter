@@ -10,7 +10,15 @@ import { ensureLoggedIn } from "connect-ensure-login";
 import { Queue } from "bullmq";
 import { renderLoginPage } from "./views/login";
 import logger from "../logger";
-import parse from "parse-duration";
+function parseDuration(str: string): number | null {
+  const match = str.trim().match(/^(\d+(?:\.\d+)?)\s*(ms|s|m|h|d|w|y)$/);
+  if (!match) return null;
+  const n = parseFloat(match[1]);
+  const unit: Record<string, number> = {
+    ms: 1, s: 1000, m: 60000, h: 3600000, d: 86400000, w: 604800000, y: 31557600000,
+  };
+  return n * unit[match[2]];
+}
 
 export interface User {
   username: string;
@@ -58,7 +66,7 @@ export function ConfigureRoutes(app: Router, opts: DashboardOptions) {
   const basePath = opts.basePath;
   const cookieSecret = opts.cookieSecret;
   const queues = opts.queues;
-  const cookieMaxAge = parse(opts.cookieMaxAge);
+  const cookieMaxAge = parseDuration(opts.cookieMaxAge);
   users = new Map(opts.users.map((u) => [u.username, u]));
 
   logger.info(
