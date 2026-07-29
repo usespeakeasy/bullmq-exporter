@@ -19,12 +19,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # 18.12.0 is pinned to match Dockerfile/.nvmrc — the version actually shipped.
+        # Non-EOL lines only. 24 is what Dockerfile/.nvmrc ship; 26 is pre-LTS forward coverage.
         node-version:
-          - 18.12.0
-          - 20
           - 22
           - 24
+          - 26
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
