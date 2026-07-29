@@ -75,7 +75,7 @@ const loginPage = `
 
 <div class="login-page">
     <div class="form">
-        <form class="login-form" method="post" action="<% loginPath %>">
+        <form class="login-form" method="post" action="<%= loginPath %>">
             <input type="text" name="username" placeholder="Username"/>
             <input type="password" name="password" placeholder="Password"/>
             <button>Login</button>

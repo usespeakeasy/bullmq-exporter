@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "lint": "eslint . --ext ts",
+    "lint": "eslint .",
     "prettier": "prettier -w src/**/*.ts",
     "build": "tsc",
     "clean": "rm -rf node_modules dist",
@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bull-board/api": "^6.12.5",
+    "@bull-board/api": "^6.21.3",
     "@bull-board/express": "^6.21.3",
     "bullmq": "^5.76.5",
     "connect-ensure-login": "^0.1.1",
@@ -33,20 +33,23 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/connect-ensure-login": "^0.1.7",
     "@types/ejs": "^3.1.1",
-    "@types/express": "^4.17.17",
+    "@types/express": "^5.0.0",
     "@types/express-session": "^1.17.5",
     "@types/passport": "^1.0.11",
     "@types/passport-local": "^1.0.35",
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.65.0",
     "eslint": "^10.8.0",
+    "globals": "^17.8.0",
     "husky": "^8.0.3",
     "nodemon": "^3.1.14",
     "prettier": "^2.8.3",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "typescript-eslint": "^8.65.0"
   },
   "nodemonConfig": {
     "watch": [
