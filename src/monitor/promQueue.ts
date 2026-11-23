@@ -1,5 +1,7 @@
 import * as bullmq from "bullmq";
 import { PrometheusMetrics } from "./promMetricsCollector";
+import { jobDurations } from "./jobDurations";
+import logger from "../logger";
 
 interface MonitoredQueueOptions {
   bullmqOpts: bullmq.QueueBaseOptions;
@@ -37,18 +39,23 @@ export class PrometheusMonitoredQueue extends bullmq.QueueEvents {
       return;
     }
 
-    const completedDuration = job.finishedOn! - job.timestamp!; // both cannot be null
-    const processedDuration = job.finishedOn! - job.processedOn!; // both cannot be null
-    const waitDuration = job.processedOn! - job.timestamp!; // both cannot be null
+    const durations = jobDurations(job);
+    if (!durations) {
+      logger.warn("Skipping duration metrics for a job without timestamps", {
+        queue: this.name,
+        jobId: job.id,
+      });
+      return;
+    }
     this.metrics.completedDuration
       .labels({ queue: this.name })
-      .observe(completedDuration);
+      .observe(durations.completed);
     this.metrics.processedDuration
       .labels({ queue: this.name })
-      .observe(processedDuration);
+      .observe(durations.processed);
     this.metrics.waitDuration
       .labels({ queue: this.name })
-      .observe(waitDuration);
+      .observe(durations.wait);
   }
 
   async loop(ms = 5000) {
