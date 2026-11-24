@@ -4,7 +4,7 @@
   "description": "Service that can be used to monitor BullMQ by providing Prometheus metrics and a Bullmq dashboard secured behind a login wall.",
   "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "node --require ts-node/register --test test/*.test.ts",
     "lint": "eslint .",
     "prettier": "prettier -w src/**/*.ts",
     "build": "tsc",
